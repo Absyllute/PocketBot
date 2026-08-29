@@ -13,5 +13,10 @@ class Utils(commands.Cog):
         embed = BotEmbeds.ping_embed(latency)
         await  interaction.response.send_message(embed=embed)
 
+    @app_commands.command(name='about', description='Information about the bot')
+    async def about(self, interaction: discord.Interaction):
+        embed, bot_icon, dev_icon = BotEmbeds.about_embed(ver="v0.1.0")
+        await interaction.response.send_message(embed=embed, files=[bot_icon, dev_icon])
+
 async def setup(bot: commands.Bot):
     await bot.add_cog(Utils(bot=bot))
