@@ -1,4 +1,5 @@
 import discord
+from discord.ext import commands
 from os import getenv
 from dotenv import load_dotenv
 
@@ -10,7 +11,18 @@ dev_guild = discord.Object(id=DEV_GUILD_ID)
 customIntents = discord.Intents.default()
 customIntents.message_content = True
 
-class BotClient(discord.Client):
+class BotClient(commands.Bot):
+    def __init__(self, intents: discord.Intents):
+        super().__init__(command_prefix='$', intents=customIntents)
+
+    async def setup_hook(self):
+        await self.load_extension("cogs.utils_cog")
+
+        self.tree.copy_global_to(guild=dev_guild)
+        synced = await self.tree.sync(guild=dev_guild)
+
+        print(f"Synced {len(synced)} slash command(s)")
+
     async def on_ready(self):
         print(f"Logged in as {self.user}")
 
