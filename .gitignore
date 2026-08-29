@@ -1,0 +1,22 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+
+# hi
+.env
+
+# Virtual Environment
+.venv/
+venv/
+env/
+
+# PyCharm / JetBrains IDE stuff
+.idea/
+
+# Python cache & bytecode
+__pycache__/
+*.py[cod]
+
+# OS junk (looking at you macOS)
+.DS_Store
+Thumbs.db
