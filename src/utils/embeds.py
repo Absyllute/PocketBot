@@ -1,5 +1,4 @@
 import discord
-from discord.types import embed
 
 PRIMARY_COLOUR = discord.Color.brand_green()
 
