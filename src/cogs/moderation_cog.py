@@ -6,9 +6,11 @@ class ModerationCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
+    purge_group = app_commands.Group(name="purge", description="Mass delete messages, with filters*")
+
     # --- --- --- Purge Any --- --- --- #
-    @app_commands.command(name="purge-any", description="Mass delete a configurable amount of messages")
-    async def purge(self, interaction: discord.Interaction, amount: int):
+    @purge_group.command(name="any", description="Mass delete messages, regardless of the sender")
+    async def purge_any(self, interaction: discord.Interaction, amount: int):
         await interaction.response.defer(ephemeral=True)
 
         if isinstance(interaction.channel, (discord.TextChannel, discord.VoiceChannel)):
@@ -19,8 +21,8 @@ class ModerationCog(commands.Cog):
             await interaction.followup.send("Unable to purge messages in this channel", ephemeral=True)
 
     # --- --- --- Purge Human --- --- --- #
-    @app_commands.command(name="purge-human", description="Mass delete a configurable amount of messages made by humans (non-nots)")
-    async def human_purge(self, interaction: discord.Interaction, amount: int):
+    @purge_group.command(name="human", description="Mass delete messages made by humans (non-nots)")
+    async def purge_human(self, interaction: discord.Interaction, amount: int):
         await interaction.response.defer(ephemeral=True)
 
         if isinstance(interaction.channel, (discord.TextChannel, discord.VoiceChannel)):
