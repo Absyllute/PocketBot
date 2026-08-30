@@ -17,6 +17,7 @@ class BotClient(commands.Bot):
 
     async def setup_hook(self):
         await self.load_extension("cogs.utils_cog")
+        await self.load_extension("cogs.moderation_cog")
 
         self.tree.copy_global_to(guild=dev_guild)
         synced = await self.tree.sync(guild=dev_guild)
@@ -27,4 +28,4 @@ class BotClient(commands.Bot):
         print(f"Logged in as {self.user}")
 
 client = BotClient(intents=customIntents)
-client.run(TOKEN)
+client.run(str(TOKEN))
