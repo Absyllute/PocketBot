@@ -14,9 +14,9 @@ class ModerationCog(commands.Cog):
         await interaction.response.defer(ephemeral=True)
 
         if isinstance(interaction.channel, (discord.TextChannel, discord.VoiceChannel)):
-            deleted = await interaction.channel.purge(limit=amount)
+            await interaction.followup.send(f"Deleted {amount} messages!")
 
-            await interaction.followup.send(f"Deleted {len(deleted)} messages!")
+            await interaction.channel.purge(limit=amount)
         else:
             await interaction.followup.send("Unable to purge messages in this channel", ephemeral=True)
 
@@ -36,9 +36,9 @@ class ModerationCog(commands.Cog):
                 else:
                     return False
 
-            messages_deleted = await interaction.channel.purge(limit=100, check=is_human)
+            await interaction.followup.send(f"Cleaning up {amount} human messages...", ephemeral=True)
 
-            await interaction.followup.send(f"Deleted {len(messages_deleted)} human messages!", ephemeral=True)
+            await interaction.channel.purge(limit=100, check=is_human)
         else:
             await interaction.followup.send("Unable to purge messages in this channel")
 
@@ -58,9 +58,9 @@ class ModerationCog(commands.Cog):
                 else:
                     return False
 
-            messages_deleted = await interaction.channel.purge(limit=100, check=is_bot)
+            await interaction.followup.send(f"Cleaning up {amount} messages...")
 
-            await interaction.followup.send(f"Deleted {len(messages_deleted)} messages!")
+            await interaction.channel.purge(limit=100, check=is_bot)
         else:
             await interaction.followup.send("Unable to purge this channel type!")
 
@@ -80,9 +80,9 @@ class ModerationCog(commands.Cog):
                 else:
                     return False
 
-            messages_deleted = await interaction.channel.purge(limit=100, check=isTarget)
+            await interaction.followup.send(f"Cleaning up {amount} messages from {user}...")
 
-            await interaction.followup.send(f"Deleted {len(messages_deleted)} messages from {user}")
+            await interaction.channel.purge(limit=100, check=isTarget)
         else:
             await interaction.followup.send("Unable to purge this channel type")
 
