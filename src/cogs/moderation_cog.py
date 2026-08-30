@@ -6,6 +6,8 @@ class ModerationCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
+    # --- --- --- --- --- # Purge Commands # --- --- --- --- --- #
+
     purge_group = app_commands.Group(name="purge", description="Mass delete messages, with filters")
 
     # --- --- --- Purge Any --- --- --- #
@@ -14,7 +16,7 @@ class ModerationCog(commands.Cog):
         await interaction.response.defer(ephemeral=True)
 
         if isinstance(interaction.channel, (discord.TextChannel, discord.VoiceChannel)):
-            await interaction.followup.send(f"Deleted {amount} messages!")
+            await interaction.followup.send(f"🧹 Cleaned up {amount} messages...", ephemeral=True)
 
             await interaction.channel.purge(limit=amount)
         else:
@@ -36,11 +38,11 @@ class ModerationCog(commands.Cog):
                 else:
                     return False
 
-            await interaction.followup.send(f"Cleaning up {amount} human messages...", ephemeral=True)
+            await interaction.followup.send(f"🧹 Cleaned up {amount} human messages...", ephemeral=True)
 
             await interaction.channel.purge(limit=100, check=is_human)
         else:
-            await interaction.followup.send("Unable to purge messages in this channel")
+            await interaction.followup.send("Unable to purge messages in this channel", ephemeral=True)
 
     # --- --- --- Purge Bots --- --- --- #
     @purge_group.command(name="bot", description="Mass delete messages made by bots (clankers). Limit: 100")
@@ -58,11 +60,11 @@ class ModerationCog(commands.Cog):
                 else:
                     return False
 
-            await interaction.followup.send(f"Cleaning up {amount} messages...")
+            await interaction.followup.send(f"🧹 Cleaned up {amount} messages...", ephemeral=True)
 
             await interaction.channel.purge(limit=100, check=is_bot)
         else:
-            await interaction.followup.send("Unable to purge this channel type!")
+            await interaction.followup.send("Unable to purge this channel type!", ephemeral=True)
 
     # --- --- --- Purge User --- --- --- #
     @purge_group.command(name="user", description="Delete messages only from a certain user. Limit: 100")
@@ -80,11 +82,11 @@ class ModerationCog(commands.Cog):
                 else:
                     return False
 
-            await interaction.followup.send(f"Cleaning up {amount} messages from {user}...")
+            await interaction.followup.send(f"🧹 Cleaned up {amount} messages from {user.mention}...", ephemeral=True)
 
             await interaction.channel.purge(limit=100, check=isTarget)
         else:
-            await interaction.followup.send("Unable to purge this channel type")
+            await interaction.followup.send("Unable to purge this channel type", ephemeral=True)
 
 async def setup(bot: commands.Bot):
     await bot.add_cog(ModerationCog(bot=bot))
