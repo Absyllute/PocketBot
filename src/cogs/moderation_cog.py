@@ -9,7 +9,7 @@ class ModerationCog(commands.Cog):
     purge_group = app_commands.Group(name="purge", description="Mass delete messages, with filters")
 
     # --- --- --- Purge Any --- --- --- #
-    @purge_group.command(name="any", description="Mass delete messages, regardless of the sender")
+    @purge_group.command(name="any", description="Mass delete messages, regardless of the sender. Limit: 100")
     async def purge_any(self, interaction: discord.Interaction, amount: int):
         await interaction.response.defer(ephemeral=True)
 
@@ -21,30 +21,44 @@ class ModerationCog(commands.Cog):
             await interaction.followup.send("Unable to purge messages in this channel", ephemeral=True)
 
     # --- --- --- Purge Human --- --- --- #
-    @purge_group.command(name="human", description="Mass delete messages made by humans (non-bots)")
+    @purge_group.command(name="human", description="Mass delete messages made by humans (non-bots). Limit: 100")
     async def purge_human(self, interaction: discord.Interaction, amount: int):
         await interaction.response.defer(ephemeral=True)
+        count = 0
 
         if isinstance(interaction.channel, (discord.TextChannel, discord.VoiceChannel)):
             def is_human(msg: discord.Message) -> bool:
-                return not msg.author.bot
+                nonlocal count
+                
+                if not msg.author.bot and count < amount:
+                    count += 1
+                    return True
+                else:
+                    return False
 
-            messages_deleted = await interaction.channel.purge(limit=amount, check=is_human, bulk=True)
+            messages_deleted = await interaction.channel.purge(limit=100, check=is_human)
 
-            await interaction.followup.send(f"Deleted {len(messages_deleted)} human messages! (bots skipped)", ephemeral=True)
+            await interaction.followup.send(f"Deleted {len(messages_deleted)} human messages!", ephemeral=True)
         else:
             await interaction.followup.send("Unable to purge messages in this channel")
 
     # --- --- --- Purge Bots --- --- --- #
-    @purge_group.command(name="bot", description="Mass delete messages made by bots (clankers)")
+    @purge_group.command(name="bot", description="Mass delete messages made by bots (clankers). Limit: 100")
     async def purge_bot(self, interaction: discord.Interaction, amount: int):
         await interaction.response.defer(ephemeral=True)
+        count = 0
 
         if isinstance(interaction.channel, (discord.TextChannel, discord.VoiceChannel)):
             def is_bot(msg: discord.Message) -> bool:
-                return msg.author.bot
+                nonlocal count
 
-            messages_deleted = await interaction.channel.purge(limit=amount, check=is_bot, bulk=True)
+                if msg.author.bot and count < amount:
+                    count += 1
+                    return True
+                else:
+                    return False
+
+            messages_deleted = await interaction.channel.purge(limit=100, check=is_bot)
 
             await interaction.followup.send(f"Deleted {len(messages_deleted)} messages!")
         else:
