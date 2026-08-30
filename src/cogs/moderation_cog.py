@@ -64,5 +64,27 @@ class ModerationCog(commands.Cog):
         else:
             await interaction.followup.send("Unable to purge this channel type!")
 
+    # --- --- --- Purge User --- --- --- #
+    @purge_group.command(name="user", description="Delete messages only from a certain user. Limit: 100")
+    async def purge_user(self, interaction: discord.Interaction, user: discord.Member, amount: int):
+        await interaction.response.defer(ephemeral=True)
+        count = 0
+
+        if isinstance(interaction.channel, (discord.TextChannel, discord.VoiceChannel)):
+            def isTarget(msg: discord.Message) -> bool:
+                nonlocal count
+
+                if msg.author.id == user.id and count < amount:
+                    count += 1
+                    return True
+                else:
+                    return False
+
+            messages_deleted = await interaction.channel.purge(limit=100, check=isTarget)
+
+            await interaction.followup.send(f"Deleted {len(messages_deleted)} messages from {user}")
+        else:
+            await interaction.followup.send("Unable to purge this channel type")
+
 async def setup(bot: commands.Bot):
     await bot.add_cog(ModerationCog(bot=bot))
