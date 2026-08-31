@@ -35,10 +35,12 @@ class EmbedBuilderModal(ui.Modal, title="Create a custom embed"):
 
         eb.set_footer(
             icon_url=interaction.user.display_avatar.url,
-            text=f"Posted by: {interaction.user.mention}"
+            text=f"Posted by: {interaction.user.display_name}"
         )
 
-        await interaction.response.send_message(embed=eb)
+        if isinstance (interaction.channel, (discord.TextChannel, discord.VoiceChannel)):
+            await interaction.channel.send(embed=eb)
+            await interaction.response.defer(thinking=False)
 
     async def on_error(self, interaction: discord.Interaction, error: Exception):
         await interaction.response.send_message(f"Failed to send embed: {error}", ephemeral=True)
