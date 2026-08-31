@@ -24,7 +24,16 @@ class EmbedBuilderModal(ui.Modal, title="Create a custom embed"):
         required=False
     )
 
+    embed_ping = ui.TextInput(
+        label="Members to ping (Optional)",
+        placeholder="@everyone, @here, or Role ID",
+        required=False,
+        max_length=50
+    )
+
     async def on_submit(self, interaction: discord.Interaction) -> None:
+        eb_ping = self.embed_ping.value if self.embed_ping.value else None
+        
         eb = discord.Embed(
             title=self.embed_title.value,
             description=self.embed_desc.value,
@@ -41,6 +50,7 @@ class EmbedBuilderModal(ui.Modal, title="Create a custom embed"):
         if isinstance (interaction.channel, (discord.TextChannel, discord.VoiceChannel)):
             await interaction.channel.send(embed=eb)
             await interaction.response.defer(thinking=False)
+            await interaction.channel.send(f"||{eb_ping}||")
 
     async def on_error(self, interaction: discord.Interaction, error: Exception):
         await interaction.response.send_message(f"Failed to send embed: {error}", ephemeral=True)
