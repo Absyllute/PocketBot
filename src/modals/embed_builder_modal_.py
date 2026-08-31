@@ -18,12 +18,6 @@ class EmbedBuilderModal(ui.Modal, title="Create a custom embed"):
         style=TextStyle.paragraph
     )
 
-    embed_thumb = ui.TextInput(
-        label="Thumbnail URL (Optional)",
-        placeholder="Image link here...",
-        required=False
-    )
-
     embed_ping = ui.TextInput(
         label="Members to ping (Optional)",
         placeholder="@everyone, @here, or Role ID",
@@ -39,9 +33,6 @@ class EmbedBuilderModal(ui.Modal, title="Create a custom embed"):
             description=self.embed_desc.value,
             color=0x73d01e
         )
-
-        if self.embed_thumb.value:
-            eb.set_thumbnail(url=self.embed_thumb.value)
 
         eb.set_footer(
             icon_url=interaction.user.display_avatar.url,
