@@ -37,6 +37,7 @@ class EmbedBuilderModal(ui.Modal, title="Create a custom embed"):
         eb = discord.Embed(
             title=self.embed_title.value,
             description=self.embed_desc.value,
+            color=0x73d01e
         )
 
         if self.embed_thumb.value:
