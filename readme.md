@@ -1,3 +1,3 @@
 # PocketBot
 
-## Readme is a work in porgress...
+## Everything you need to run a Minecraft discord server
