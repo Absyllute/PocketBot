@@ -1,4 +1,5 @@
 import discord
+from discord import Embed
 from pathlib import Path
 
 PRIMARY_COLOUR = discord.Color.brand_green()
@@ -9,8 +10,41 @@ DEV_ICON_PATH = BASE_DIR / "assets" / "images" / "absyllute.jpg"
 
 
 class BotEmbeds:
+
     @staticmethod
-    def ping_embed(latency: int) -> discord.Embed:
+    def ip_embed() -> Embed:
+        eb = Embed(
+            title="PocketCraft SMP",
+            description="Early closed beta for server memebers",
+        )
+
+        eb.add_field(
+            name="Java Edition:",
+            value="`play.pocketcraft-smp.online`",
+            inline=True
+        )
+
+        eb.add_field(
+            name="Bedrock Edition:",
+            value="`bedrock.pocketcraft-smp.online` \n Port: `17506`",
+            inline=True
+        )
+
+        eb.add_field(
+            name="Note:",
+            value="The ping is really high at the moment, bear with us",
+            inline=False
+        )
+
+        eb.set_footer(
+            text="SMP run by Absyllute"
+        )
+
+        return eb
+
+
+    @staticmethod
+    def ping_embed(latency: int) -> Embed:
         embed = discord.Embed(
             title='**Pong! PocketBot is online!!**',
             description=f'**Round Latency:** `{latency}ms`',
@@ -21,7 +55,7 @@ class BotEmbeds:
 
         return embed
     @staticmethod
-    def about_embed(ver: str) -> tuple[discord.Embed, discord.File, discord.File]:
+    def about_embed(ver: str) -> tuple[Embed, discord.File, discord.File]:
         bot_icon = discord.File(ICON_PATH, filename="ico.png")
         dev_icon = discord.File(DEV_ICON_PATH, filename="absyllute.png")
         eb = discord.Embed(
