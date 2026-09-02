@@ -14,6 +14,11 @@ class Utils(commands.Cog):
     async def builder(self, interaction: discord.Interaction):
         await interaction.response.send_modal(EmbedBuilderModal())
 
+    @app_commands.command(name="ip", description="View the join link for the PocketCraft SMP")
+    async def ip(self, interaction: discord.Interaction):
+
+        await interaction.response.send_message(embed=BotEmbeds.ip_embed())
+
     @app_commands.command(name='ping', description='A ping command to test if the bot is online')
     async def ping(self, interaction: discord.Interaction):
         latency = round(self.bot.latency * 1000)
