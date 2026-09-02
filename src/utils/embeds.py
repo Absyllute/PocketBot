@@ -2,7 +2,7 @@ import discord
 from discord import Embed
 from pathlib import Path
 
-PRIMARY_COLOUR = discord.Color.brand_green()
+PRIMARY_COLOUR = 0x73d01e
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 ICON_PATH = BASE_DIR / "assets" / "images" / "PH_icon.png"
@@ -16,6 +16,7 @@ class BotEmbeds:
         eb = Embed(
             title="PocketCraft SMP",
             description="Early closed beta for server memebers",
+            color=PRIMARY_COLOUR
         )
 
         eb.add_field(
