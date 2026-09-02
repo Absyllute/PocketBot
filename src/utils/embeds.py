@@ -1,8 +1,7 @@
 import discord
 from discord import Embed
 from pathlib import Path
-
-PRIMARY_COLOUR = 0x73d01e
+import shared
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 ICON_PATH = BASE_DIR / "assets" / "images" / "PH_icon.png"
@@ -16,7 +15,7 @@ class BotEmbeds:
         eb = Embed(
             title="PocketCraft SMP",
             description="Early closed beta for server memebers",
-            color=PRIMARY_COLOUR
+            color=shared.primary_colour
         )
 
         eb.add_field(
@@ -49,7 +48,7 @@ class BotEmbeds:
         embed = discord.Embed(
             title='**Pong! PocketBot is online!!**',
             description=f'**Round Latency:** `{latency}ms`',
-            color=PRIMARY_COLOUR
+            color=shared.primary_colour
         )
 
         embed.set_footer(text="Bot by @Absyllute")
@@ -62,7 +61,7 @@ class BotEmbeds:
         eb = discord.Embed(
             title="PocketBot",
             description="The official bot for the PocketHost Discord server",
-            color=PRIMARY_COLOUR
+            color=shared.primary_colour
         )
 
         eb.add_field(name="Version", value=f"{ver} | Updated: 29 August 2026")
