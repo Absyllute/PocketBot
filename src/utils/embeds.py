@@ -12,6 +12,15 @@ DEV_ICON_PATH = BASE_DIR / "assets" / "images" / "absyllute.jpg"
 class BotEmbeds:
 
     @staticmethod
+    def smp_error_embed() -> Embed:
+        eb = Embed(
+            title="Error",
+            description="An error occoured when running this command"
+        )
+
+        return eb
+
+    @staticmethod
     def smp_embed(srv: JavaServer) -> Embed:
         eb = Embed(
             title="PocketCraft SMP Status",
