@@ -25,12 +25,12 @@ class Utils(commands.Cog):
         await interaction.response.defer()
 
         try:
-            server = await JavaServer.async_lookup("mc.hypixel.net")
+            server = await JavaServer.async_lookup("play.pocketcraft-smp.online")
             status = await server.async_status()
 
             eb = BotEmbeds.smp_embed(latency=round(status.latency))
         except Exception as e:
-            print(f"Failed to send {e}")
+            print(f"Failed to send: \"{e}\"")
             eb = BotEmbeds.smp_error_embed(e)
 
         await interaction.followup.send(embed=eb)

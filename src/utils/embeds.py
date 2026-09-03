@@ -15,7 +15,12 @@ class BotEmbeds:
     def smp_error_embed(error: Exception) -> Embed:
         eb = Embed(
             title="Error",
-            description=f"An error occoured: {error}"
+            description=f"An error occoured: \"{error}\""
+        )
+
+        eb.add_field(
+            name="",
+            value="The SMP might be offline"
         )
 
         return eb
