@@ -12,22 +12,20 @@ DEV_ICON_PATH = BASE_DIR / "assets" / "images" / "absyllute.jpg"
 class BotEmbeds:
 
     @staticmethod
-    def smp_error_embed() -> Embed:
+    def smp_error_embed(error: Exception) -> Embed:
         eb = Embed(
             title="Error",
-            description="An error occoured when running this command"
+            description=f"An error occoured: {error}"
         )
 
         return eb
 
     @staticmethod
-    def smp_embed(srv: JavaServer) -> Embed:
+    def smp_embed(latency: float) -> Embed:
         eb = Embed(
             title="PocketCraft SMP Status",
             color=shared_vars.primary_colour
         )
-
-        latency = srv.ping()
 
         eb.add_field(
             name="Ping",

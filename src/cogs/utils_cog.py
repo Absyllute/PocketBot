@@ -3,6 +3,7 @@ from discord.ext import commands
 from discord import app_commands
 from utils.embeds import BotEmbeds
 from modals.embed_builder_modal_ import EmbedBuilderModal
+from mcstatus import JavaServer
 
 class Utils(commands.Cog):
     def __init__(self, bot: commands.Bot):
@@ -18,6 +19,21 @@ class Utils(commands.Cog):
     async def ip(self, interaction: discord.Interaction):
 
         await interaction.response.send_message(embed=BotEmbeds.ip_embed())
+
+    @app_commands.command(name="smpstatus", description="View the status of the SMP")
+    async def smpstatus(self, interaction: discord.Interaction):
+        await interaction.response.defer()
+
+        try:
+            server = await JavaServer.async_lookup("mc.hypixel.net")
+            status = await server.async_status()
+
+            eb = BotEmbeds.smp_embed(latency=round(status.latency))
+        except Exception as e:
+            print(f"Failed to send {e}")
+            eb = BotEmbeds.smp_error_embed(e)
+
+        await interaction.followup.send(embed=eb)
 
     @app_commands.command(name='ping', description='A ping command to test if the bot is online')
     async def ping(self, interaction: discord.Interaction):
