@@ -2,6 +2,7 @@ import discord
 from discord import Embed
 from pathlib import Path
 import utils.shared_vars as shared_vars
+from mcstatus import JavaServer
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 ICON_PATH = BASE_DIR / "assets" / "images" / "PH_icon.png"
@@ -9,6 +10,22 @@ DEV_ICON_PATH = BASE_DIR / "assets" / "images" / "absyllute.jpg"
 
 
 class BotEmbeds:
+
+    @staticmethod
+    def smp_embed(srv: JavaServer) -> Embed:
+        eb = Embed(
+            title="PocketCraft SMP Status",
+            color=shared_vars.primary_colour
+        )
+
+        latency = srv.ping()
+
+        eb.add_field(
+            name="Ping",
+            value=f"`{latency}ms`"
+        )
+
+        return eb
 
     @staticmethod
     def ip_embed() -> Embed:
