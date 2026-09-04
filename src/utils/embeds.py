@@ -34,7 +34,13 @@ class BotEmbeds:
 
         eb.add_field(
             name="Ping",
-            value=f"`{latency}ms`"
+            value=f"`{latency}ms` (Actual ping is way lower in-game)",
+            inline=False
+        )
+
+        eb.add_field(
+            name="🟢️ Online!",
+            value=""
         )
 
         return eb
