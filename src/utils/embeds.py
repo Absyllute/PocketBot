@@ -20,7 +20,7 @@ class BotEmbeds:
 
         eb.add_field(
             name="",
-            value="The SMP might be offline"
+            value= "The SMP might be offline" if not "" else ""
         )
 
         return eb
