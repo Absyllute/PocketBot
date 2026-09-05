@@ -26,14 +26,20 @@ class BotEmbeds:
         return eb
 
     @staticmethod
-    def smp_embed(latency: float) -> Embed:
+    def smp_embed(latency: float, online_players: int) -> Embed:
         eb = Embed(
             title="PocketCraft SMP Status",
             color=shared_vars.primary_colour
         )
 
         eb.add_field(
-            name="Ping",
+            name="Online Players",
+            value=f"**{online_players}**",
+            inline=False
+        )
+
+        eb.add_field(
+            name="Reponse Latency",
             value=f"`{latency}ms` (Actual ping is way lower in-game)",
             inline=False
         )

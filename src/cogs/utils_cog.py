@@ -28,7 +28,8 @@ class Utils(commands.Cog):
             server = await JavaServer.async_lookup("play.pocketcraft-smp.online")
             status = await server.async_status()
 
-            eb = BotEmbeds.smp_embed(latency=round(status.latency))
+
+            eb = BotEmbeds.smp_embed(latency=round(status.latency), online_players=status.players.online)
         except Exception as e:
             print(f"Failed to send: \"{e}\"")
             eb = BotEmbeds.smp_error_embed(e)
