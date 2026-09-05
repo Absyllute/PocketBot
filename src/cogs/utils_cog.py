@@ -31,8 +31,17 @@ class Utils(commands.Cog):
 
             eb = BotEmbeds.smp_embed(latency=round(status.latency), online_players=status.players.online)
         except Exception as e:
-            print(f"Failed to send: \"{e}\"")
-            eb = BotEmbeds.smp_error_embed(e)
+            if "[Errno 104] Connection reset by peer" in str(e) or isinstance(e, ConnectionResetError):
+                print("Try running the command again...")
+                eb = BotEmbeds.smp_error_embed(str(e))
+
+                eb.add_field(
+                    name="Try running the command again...",
+                    value=""
+                )
+            else:
+                print(f"Failed to send: \"{e}\"")
+                eb = BotEmbeds.smp_error_embed(str(e))
 
         await interaction.followup.send(embed=eb)
 

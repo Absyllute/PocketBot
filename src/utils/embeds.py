@@ -12,15 +12,10 @@ DEV_ICON_PATH = BASE_DIR / "assets" / "images" / "absyllute.jpg"
 class BotEmbeds:
 
     @staticmethod
-    def smp_error_embed(error: Exception) -> Embed:
+    def smp_error_embed(error: str) -> Embed: # Error not being of type Exception is fully intentional as it allows for easier str() comparisons... ~Absyllute
         eb = Embed(
             title="Error",
             description=f"An error occoured: \"{error}\""
-        )
-
-        eb.add_field(
-            name="",
-            value= "The SMP might be offline" if not "" else ""
         )
 
         return eb
