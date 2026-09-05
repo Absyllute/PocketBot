@@ -11,6 +11,7 @@ DEV_ICON_PATH = BASE_DIR / "assets" / "images" / "absyllute.jpg"
 
 class BotEmbeds:
 
+    ## -- ## -- ## -- ## SMP Related ## -- ## -- ##
     @staticmethod
     def smp_error_embed(error: str) -> Embed: # Error not being of type Exception is fully intentional as it allows for easier str() comparisons... ~Absyllute
         eb = Embed(
@@ -78,6 +79,8 @@ class BotEmbeds:
 
         return eb
 
+    ## -- ## -- ## -- ## Util Command ## -- ## -- ##
+
 
     @staticmethod
     def ping_embed(latency: int) -> Embed:
@@ -107,3 +110,41 @@ class BotEmbeds:
         eb.set_thumbnail(url="attachment://ico.png")
 
         return eb, bot_icon, dev_icon
+
+    @staticmethod
+    def help_embed() -> Embed:
+        eb = discord.Embed(
+            title="Help!",
+            description="Here's a list of comands :)",
+            color=shared_vars.primary_colour
+        )
+
+        eb.add_field(
+            name="`/help`",
+            value="Shows a list of *useful* commands"
+        )
+
+        eb.add_field(
+            name="`/about`",
+            value="Shows information about the bot"
+        )
+
+
+        eb.add_field(
+            name="`/ping`",
+            value="Tests if the bot is online"
+        )
+
+        eb.add_field(
+            name="`/ip`",
+            value="Shows the join link for the SMP"
+        )
+
+        eb.add_field(
+            name="`/smpstatus`",
+            value="Shows the current status of the SMP"
+        )
+
+        
+
+        return eb
