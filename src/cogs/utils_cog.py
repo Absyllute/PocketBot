@@ -4,6 +4,7 @@ from discord import app_commands
 from utils.embeds import BotEmbeds
 from modals.embed_builder_modal_ import EmbedBuilderModal
 from mcstatus import JavaServer
+import utils.shared_vars as SharedVars
 
 class Utils(commands.Cog):
     def __init__(self, bot: commands.Bot):
@@ -25,7 +26,7 @@ class Utils(commands.Cog):
         await interaction.response.defer()
 
         try:
-            server = await JavaServer.async_lookup("play.pocketcraft-smp.online")
+            server = await JavaServer.async_lookup(SharedVars.smp_link)
             status = await server.async_status()
 
 
