@@ -28,19 +28,19 @@ class BotEmbeds:
         )
 
         eb.add_field(
-            name="Online Players",
+            name="Online Players:",
             value=f"**{online_players}**",
             inline=False
         )
 
         eb.add_field(
-            name="Reponse Latency",
-            value=f"`{latency}ms` (Actual ping is way lower in-game)",
+            name="Reponse Latency:",
+            value=f"`{latency}ms` (Actual ping is lower in-game)",
             inline=False
         )
 
         eb.add_field(
-            name="🟢️ Online!",
+            name="🟢️ Server Online!",
             value=""
         )
 
