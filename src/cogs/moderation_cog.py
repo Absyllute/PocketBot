@@ -1,6 +1,7 @@
 import discord
 from discord import app_commands
 from discord.ext import commands
+import utils.shared_vars as SharedVars
 
 class ModerationCog(commands.Cog):
     def __init__(self, bot):
@@ -12,6 +13,7 @@ class ModerationCog(commands.Cog):
 
     # --- --- --- Purge Any --- --- --- #
     @purge_group.command(name="any", description="Mass delete messages, regardless of the sender. Limit: 100")
+    @SharedVars.Config.is_mod_or_admin()
     async def purge_any(self, interaction: discord.Interaction, amount: int):
         await interaction.response.defer(ephemeral=True)
 
@@ -24,6 +26,7 @@ class ModerationCog(commands.Cog):
 
     # --- --- --- Purge Human --- --- --- #
     @purge_group.command(name="human", description="Mass delete messages made by humans (non-bots). Limit: 100")
+    @SharedVars.Config.is_mod_or_admin()
     async def purge_human(self, interaction: discord.Interaction, amount: int):
         await interaction.response.defer(ephemeral=True)
         count = 0
@@ -46,6 +49,7 @@ class ModerationCog(commands.Cog):
 
     # --- --- --- Purge Bots --- --- --- #
     @purge_group.command(name="bot", description="Mass delete messages made by bots (clankers). Limit: 100")
+    @SharedVars.Config.is_mod_or_admin()
     async def purge_bot(self, interaction: discord.Interaction, amount: int):
         await interaction.response.defer(ephemeral=True)
         count = 0
@@ -68,6 +72,7 @@ class ModerationCog(commands.Cog):
 
     # --- --- --- Purge User --- --- --- #
     @purge_group.command(name="user", description="Delete messages only from a certain user. Limit: 100")
+    @SharedVars.Config.is_mod_or_admin()
     async def purge_user(self, interaction: discord.Interaction, user: discord.Member, amount: int):
         await interaction.response.defer(ephemeral=True)
         count = 0
