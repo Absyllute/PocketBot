@@ -79,7 +79,17 @@ class BotEmbeds:
 
         return eb
 
-    ## -- ## -- ## -- ## Util Command ## -- ## -- ##
+    ## -- ## -- ## -- ## Util Commands ## -- ## -- ##
+
+    @staticmethod
+    def succsess_embed(success_message: str) -> Embed:
+        eb = discord.Embed(
+            title="Success!",
+            description=f"{success_message}",
+            color=shared_vars.primary_colour
+        )
+
+        return eb
 
 
     @staticmethod

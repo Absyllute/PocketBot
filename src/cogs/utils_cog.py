@@ -23,7 +23,7 @@ class Utils(commands.Cog):
         if isinstance (interaction.user, discord.Member):
             if interaction.user.guild_permissions.administrator:
                 SharedVars.Config.mod_roles.append(role.id)
-                await interaction.response.send_message(f"Added {role.mention} to modroles! Members with this role will have permission to run admin commands")
+                await interaction.response.send_message(embed=BotEmbeds.succsess_embed(success_message=f"Added {role.mention} to the list of modroles!"))
             else:
                 await interaction.response.send_message(f"Only people with the Administrator permission can run this command!", ephemeral=True)
 
