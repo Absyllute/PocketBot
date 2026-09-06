@@ -10,8 +10,9 @@ class Utils(commands.Cog):
         self.bot = bot
 
     embed_cmd_grp = app_commands.Group(name="embed", description="Commands for making and edit pretty embeds")
-    modrole_cmd_grp   = app_commands.Group(name="modrole", description="Commands for adding staff members for staff-only commands")
+    modrole_cmd_grp = app_commands.Group(name="modrole", description="Commands for adding staff members for staff-only commands")
 
+    ### --- ### Require user to be in the modrole group ### --- ###
     @embed_cmd_grp.command(name="builder", description="Create an embed from scratch")
     @SharedVars.Config.is_mod_or_admin()
     async def builder(self, interaction: discord.Interaction):
@@ -27,6 +28,15 @@ class Utils(commands.Cog):
             else:
                 await interaction.response.send_message(f"Only people with the Administrator permission can run this command!", ephemeral=True)
 
+    @modrole_cmd_grp.command(name="remove", description="Removes a role from the modrole group")
+    @SharedVars.Config.is_mod_or_admin()
+    async def remove_modrole(self, interaction: discord.Interaction, role: discord.Role):
+        if isinstance (interaction.user, discord.Member):
+            if interaction.user.guild_permissions.administrator:
+                SharedVars.Config.mod_roles.remove(role.id)
+                await interaction.response.send_message(embed=BotEmbeds.succsess_embed(f"Removed {role.mention} from the list of modroles!"))
+            else:
+                await interaction.response.send_message("Only people with the Administrator permission can run this command!", ephemeral=True)
 
     @app_commands.command(name='ping', description='A ping command to test if the bot is online')
     async def ping(self, interaction: discord.Interaction):
