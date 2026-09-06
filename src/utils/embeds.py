@@ -91,6 +91,16 @@ class BotEmbeds:
 
         return eb
 
+    @staticmethod
+    def error_embed(error_message: str) -> Embed:
+        eb = discord.Embed(
+            title="Error...",
+            description=f"{error_message}",
+            color=shared_vars.error_colour
+        )
+
+        return eb
+
 
     @staticmethod
     def ping_embed(latency: int) -> Embed:

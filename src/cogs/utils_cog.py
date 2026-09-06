@@ -26,7 +26,7 @@ class Utils(commands.Cog):
                 SharedVars.Config.mod_roles.append(role.id)
                 await interaction.response.send_message(embed=BotEmbeds.succsess_embed(success_message=f"Added {role.mention} to the list of modroles!"))
             else:
-                await interaction.response.send_message(f"Only people with the Administrator permission can run this command!", ephemeral=True)
+                await interaction.response.send_message(embed=BotEmbeds.error_embed("Only people with the Administrator permission can run this command!"), ephemeral=True)
 
     @modrole_cmd_grp.command(name="remove", description="Removes a role from the modrole group")
     @SharedVars.Config.is_mod_or_admin()
@@ -36,7 +36,7 @@ class Utils(commands.Cog):
                 SharedVars.Config.mod_roles.remove(role.id)
                 await interaction.response.send_message(embed=BotEmbeds.succsess_embed(f"Removed {role.mention} from the list of modroles!"))
             else:
-                await interaction.response.send_message("Only people with the Administrator permission can run this command!", ephemeral=True)
+                await interaction.response.send_message(embed=BotEmbeds.error_embed("Only people with the Administrator permission can run this command!"), ephemeral=True)
 
     @app_commands.command(name='ping', description='A ping command to test if the bot is online')
     async def ping(self, interaction: discord.Interaction):
