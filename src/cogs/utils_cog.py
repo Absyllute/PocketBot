@@ -9,12 +9,24 @@ class Utils(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
 
-    embed_cmd_grp = app_commands.Group(name="embed", description="Commands for to make and edit pretty embeds")
+    embed_cmd_grp = app_commands.Group(name="embed", description="Commands for making and edit pretty embeds")
+    modrole_cmd_grp   = app_commands.Group(name="modrole", description="Commands for adding staff members for staff-only commands")
 
     @embed_cmd_grp.command(name="builder", description="Create an embed from scratch")
     @SharedVars.Config.is_mod_or_admin()
     async def builder(self, interaction: discord.Interaction):
         await interaction.response.send_modal(EmbedBuilderModal())
+
+    @modrole_cmd_grp.command(name="add", description="Adds a role to be able run eleveted commands")
+    @SharedVars.Config.is_mod_or_admin()
+    async def add_modrole(self, interaction: discord.Interaction, role: discord.Role):
+        if isinstance (interaction.user, discord.Member):
+            if interaction.user.guild_permissions.administrator:
+                SharedVars.Config.mod_roles.append(role.id)
+                await interaction.response.send_message(f"Added {role.mention} to modroles! Members with this role will have permission to run admin commands")
+            else:
+                await interaction.response.send_message(f"Only people with the Administrator permission can run this command!", ephemeral=True)
+
 
     @app_commands.command(name='ping', description='A ping command to test if the bot is online')
     async def ping(self, interaction: discord.Interaction):
