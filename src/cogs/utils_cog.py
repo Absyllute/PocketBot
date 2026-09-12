@@ -25,8 +25,8 @@ class Utils(commands.Cog):
         if isinstance (interaction.user, discord.Member):
             if interaction.user.guild_permissions.administrator:
                 if interaction.guild_id is not None:
-                    SharedVars.Config.mod_roles.append(role.id)
-                    rusty_core.add_modrole(guild_id=interaction.guild_id, role_ids=SharedVars.Config.mod_roles)
+                    SharedVars.Config.mod_roles.add(role.id)
+                    rusty_core.add_modrole(guild_id=interaction.guild_id, role_ids=list(SharedVars.Config.mod_roles))
                     await interaction.response.send_message(embed=BotEmbeds.succsess_embed(success_message=f"Added {role.mention} to the list of modroles!"))
             else:
                 await interaction.response.send_message(embed=BotEmbeds.error_embed("Only people with the Administrator permission can run this command!"), ephemeral=True)

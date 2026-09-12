@@ -6,7 +6,7 @@ from discord import Interaction, Member, app_commands
 smp_link = "play.pocketcraft-smp.online"
 
 class Config:
-    mod_roles: list[int] = [] # "Hello everyone, this is your daily dose of type safety" ~Probably vit12
+    mod_roles: set[int] = set() # "Hello everyone, this is your daily dose of type safety" ~Probably vit12
 
     @staticmethod
     def is_mod_or_admin():
