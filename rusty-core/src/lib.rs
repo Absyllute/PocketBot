@@ -30,7 +30,7 @@ mod rusty_core {
         let json_roles = serde_json::to_string(&role_ids).unwrap();
 
         db_conn.execute("
-            INSERT INTO modrole (guild_id, role_id) VALUES (?1, ?2)
+            INSERT INTO modrole (guild_id, role_ids) VALUES (?1, ?2)
             ON CONFLICT (guild_id) DO UPDATE SET role_ids = excluded.role_ids
         ", rusqlite::params![guild_id, json_roles]).unwrap();
     }

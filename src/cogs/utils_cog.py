@@ -4,6 +4,7 @@ from discord import app_commands
 from utils.embeds import BotEmbeds
 from modals.embed_builder_modal_ import EmbedBuilderModal
 import utils.shared_vars as SharedVars
+import rusty_core
 
 class Utils(commands.Cog):
     def __init__(self, bot: commands.Bot):
@@ -23,8 +24,10 @@ class Utils(commands.Cog):
     async def add_modrole(self, interaction: discord.Interaction, role: discord.Role):
         if isinstance (interaction.user, discord.Member):
             if interaction.user.guild_permissions.administrator:
-                SharedVars.Config.mod_roles.append(role.id)
-                await interaction.response.send_message(embed=BotEmbeds.succsess_embed(success_message=f"Added {role.mention} to the list of modroles!"))
+                if interaction.guild_id is not None:
+                    SharedVars.Config.mod_roles.append(role.id)
+                    rusty_core.add_modrole(guild_id=interaction.guild_id, role_ids=SharedVars.Config.mod_roles)
+                    await interaction.response.send_message(embed=BotEmbeds.succsess_embed(success_message=f"Added {role.mention} to the list of modroles!"))
             else:
                 await interaction.response.send_message(embed=BotEmbeds.error_embed("Only people with the Administrator permission can run this command!"), ephemeral=True)
 
