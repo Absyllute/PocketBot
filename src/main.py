@@ -2,6 +2,9 @@ import discord
 from discord.ext import commands
 from os import getenv
 from dotenv import load_dotenv
+import rusty_core
+
+rusty_core.init_db()
 
 load_dotenv()
 TOKEN = getenv("BOT_TOKEN")
