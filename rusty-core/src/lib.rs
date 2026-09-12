@@ -17,6 +17,8 @@ mod rusty_core {
                 role_ids TEXT
             )
         ", []).unwrap();
+
+        println!("Rust: Initalised Databse")
     }
 
     #[pyfunction]

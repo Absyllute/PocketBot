@@ -2,13 +2,12 @@
 /shelf/
 /workspace.xml
 
-# hi
-.env
-
-# Virtual Environment
+# Virtual and Development Environment
 .venv/
 venv/
 env/
+.env
+test.db
 
 # PyCharm / JetBrains IDE stuff
 .idea/
