@@ -36,7 +36,7 @@ class Utils(commands.Cog):
     async def remove_modrole(self, interaction: discord.Interaction, role: discord.Role):
         if isinstance (interaction.user, discord.Member):
             if interaction.user.guild_permissions.administrator:
-                SharedVars.Config.mod_roles.remove(role.id)
+                SharedVars.Config.mod_roles.discard(role.id)
                 await interaction.response.send_message(embed=BotEmbeds.succsess_embed(f"Removed {role.mention} from the list of modroles!"))
             else:
                 await interaction.response.send_message(embed=BotEmbeds.error_embed("Only people with the Administrator permission can run this command!"), ephemeral=True)
