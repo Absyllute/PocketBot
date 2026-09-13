@@ -29,3 +29,4 @@ class Config:
 ### --- Styling --- ###
 primary_colour = 0x73d01e
 error_colour   = 0xf03c2e
+info_colour    = 0x1eb5f0
