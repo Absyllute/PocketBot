@@ -11,6 +11,16 @@ DEV_ICON_PATH = BASE_DIR / "assets" / "images" / "absyllute.jpg"
 
 class BotEmbeds:
 
+    @staticmethod
+    def info_embed(title: str, desc: str):
+        eb = Embed(
+            color=shared_vars.info_colour,
+            description=desc,
+            title=title
+        )
+
+        return eb
+
     ## -- ## -- ## -- ## SMP Related ## -- ## -- ##
     @staticmethod
     def smp_error_embed(error: str) -> Embed: # Error not being of type Exception is fully intentional as it allows for easier str() comparisons... ~Absyllute
