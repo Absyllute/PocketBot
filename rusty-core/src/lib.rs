@@ -20,8 +20,6 @@ mod rusty_core {
                 PRIMARY KEY (guild_id, role_id)
             )
         ", []).unwrap();
-
-        println!("Rust: Initalised Databse")
     }
 
     #[pyfunction]
@@ -40,12 +38,5 @@ mod rusty_core {
         db_conn.execute("
             DELETE FROM modrole WHERE guild_id = ?1 AND role_id = ?2
         ", params![guild_id, role_id.to_string()]).unwrap();
-
-        println!("Rust: Removed modrole: {}", role_id)
-    }
-
-    #[pyfunction]
-    fn test_fn() {
-        println!("The snake has been oxidised")
     }
 }
