@@ -20,6 +20,13 @@ mod rusty_core {
                 PRIMARY KEY (guild_id, role_id)
             )
         ", []).unwrap();
+
+        db_conn.execute("
+            CREATE TABLE IF NOT EXISTS join_links (
+                guild_id  INTEGER NOT NULL PRIMARY KEY,
+                join_link TEXT
+            )
+        ", []).unwrap();
     }
 
     /// Adds a role id into the modrole group
