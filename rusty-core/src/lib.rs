@@ -39,4 +39,23 @@ mod rusty_core {
             DELETE FROM modrole WHERE guild_id = ?1 AND role_id = ?2
         ", params![guild_id, role_id.to_string()]).unwrap();
     }
+
+    #[pyfunction]
+    fn check_modroles(guild_id: i64) -> PyResult<Vec<i64>> {
+        let db_conn = Connection::open(DATABASE).unwrap();
+
+        let mut stmt = db_conn.prepare("SELECT role_id FROM modrole WHERE guild_id = ?1").unwrap();
+
+        let role_iterator = stmt.query_map(params![guild_id], |row| {
+            let role_id: i64 = row.get(0)?;
+            Ok(role_id)
+        }).unwrap();
+
+        let mut roles = Vec::new();
+        for role in role_iterator {
+            roles.push(role.unwrap());
+        }
+
+        Ok(roles)
+    }
 }
