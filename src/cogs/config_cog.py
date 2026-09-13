@@ -17,7 +17,7 @@ class Config(commands.Cog):
     @SharedVars.Config.is_mod_or_admin()
     async def set_joinlink(self, interaction: discord.Interaction, url: str):
         if interaction.guild_id:
-            rusty_core.set_join_link(guild_id=interaction.guild_id, url=url)
+            # rusty_core.set_join_link(guild_id=interaction.guild_id, url=url)
 
             await interaction.response.send_message(embed=BotEmbeds.succsess_embed(success_message="Set server join link successfully!"))
     
