@@ -41,6 +41,17 @@ class Utils(commands.Cog):
             else:
                 await interaction.response.send_message(embed=BotEmbeds.error_embed("Only people with the Administrator permission can run this command!"), ephemeral=True)
 
+    @modrole_cmd_grp.command(name="list", description="List all roles that are part of the modrole group")
+    @SharedVars.Config.is_mod_or_admin()
+    async def list_modroles(self, interaction: discord.Interaction):
+        if isinstance(interaction.user, discord.Member) and interaction.guild_id:
+            modroles: list[int] = rusty_core.check_modroles(guild_id=interaction.guild_id)
+            index: int = 1
+            
+            for role in modroles:
+                print(f"Modrole {index}: {role}")
+                index += 1
+
     @app_commands.command(name='ping', description='A ping command to test if the bot is online')
     async def ping(self, interaction: discord.Interaction):
         latency = round(self.bot.latency * 1000)
