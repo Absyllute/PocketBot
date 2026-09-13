@@ -22,6 +22,7 @@ mod rusty_core {
         ", []).unwrap();
     }
 
+    /// Adds a role id into the modrole group
     #[pyfunction]
     fn add_modrole(guild_id: i64, role_id: i64) {
         let db_conn = Connection::open(DATABASE).unwrap();
@@ -31,6 +32,7 @@ mod rusty_core {
         ", rusqlite::params![guild_id, role_id]).unwrap();
     }
 
+    /// Removes a role id into the modrole group
     #[pyfunction]
     fn remove_modrole(guild_id: i64, role_id: i64) {
         let db_conn = Connection::open(DATABASE).unwrap();
@@ -40,6 +42,7 @@ mod rusty_core {
         ", params![guild_id, role_id.to_string()]).unwrap();
     }
 
+    /// Returns an array of i64 role ids
     #[pyfunction]
     fn check_modroles(guild_id: i64) -> PyResult<Vec<i64>> {
         let db_conn = Connection::open(DATABASE).unwrap();
