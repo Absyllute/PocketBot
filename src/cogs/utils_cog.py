@@ -46,11 +46,16 @@ class Utils(commands.Cog):
     async def list_modroles(self, interaction: discord.Interaction):
         if isinstance(interaction.user, discord.Member) and interaction.guild_id:
             modroles: list[int] = rusty_core.check_modroles(guild_id=interaction.guild_id)
-            index: int = 1
-            
+            role_index: int = 1
+            desc: str = ""
+
             for role in modroles:
-                print(f"Modrole {index}: {role}")
-                index += 1
+                desc += f"Modrole {role_index}: <@&{role}>\n"
+                role_index += 1
+
+            embed = BotEmbeds.info_embed(title="Modroles:", desc=desc)
+            await interaction.response.send_message(embed=embed)
+
 
     @app_commands.command(name='ping', description='A ping command to test if the bot is online')
     async def ping(self, interaction: discord.Interaction):
