@@ -40,6 +40,7 @@ use pyo3::prelude::*;
 
         db_conn.execute("
             INSERT OR REPLACE INTO mc_server (guild_id, java_link, bedrock_link, bedrock_port, embed_title, embed_desc)
+            VALUES(?1, ?2, ?3, ?4, ?5, ?6)
         ", params![guild_id, java_link, bedrock_link, bedrock_port, embed_title, embed_desc]).unwrap();
     }
 
