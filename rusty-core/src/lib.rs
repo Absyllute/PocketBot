@@ -3,7 +3,9 @@ use pyo3::prelude::*;
 /// A Python module implemented in Rust.
 #[pymodule]
 mod rusty_core {
-    use pyo3::prelude::*;
+    use std::env::join_paths;
+
+use pyo3::prelude::*;
     use rusqlite::{Connection, params};
 
     const DATABASE: &str = "test.db";
@@ -27,6 +29,16 @@ mod rusty_core {
                 join_link TEXT
             )
         ", []).unwrap();
+    }
+
+    #[pyfunction]
+    fn set_join_link (guild_id: i64, url: &str) {
+        let db_conn = Connection::open(DATABASE).unwrap();
+
+        db_conn.execute("
+            INSERT OR REPLACE INTO join_links (guild_id, join_link)
+            VALUES (?1, ?2)
+        ", params![guild_id, url]).unwrap();
     }
 
     /// Adds a role id into the modrole group
