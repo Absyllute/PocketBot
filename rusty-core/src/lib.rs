@@ -15,8 +15,9 @@ mod rusty_core {
 
         db_conn.execute("
             CREATE TABLE IF NOT EXISTS modrole (
-                guild_id INTEGER PRIMARY KEY NOT NULL,
-                role_id  TEXT
+                guild_id INTEGER NOT NULL,
+                role_id  INTEGER NOT NULL,
+                PRIMARY KEY (guild_id, role_id)
             )
         ", []).unwrap();
 
@@ -24,15 +25,12 @@ mod rusty_core {
     }
 
     #[pyfunction]
-    fn add_modrole(guild_id: i64, role_ids: Vec<i64>) {
+    fn add_modrole(guild_id: i64, role_id: i64) {
         let db_conn = Connection::open(DATABASE).unwrap();
 
-        let json_roles = serde_json::to_string(&role_ids).unwrap();
-
         db_conn.execute("
-            INSERT INTO modrole (guild_id, role_id) VALUES (?1, ?2)
-            ON CONFLICT (guild_id) DO UPDATE SET role_id = excluded.role_id
-        ", rusqlite::params![guild_id, json_roles]).unwrap();
+            INSERT OR IGNORE INTO modrole (guild_id, role_id) VALUES (?1, ?2)
+        ", rusqlite::params![guild_id, role_id]).unwrap();
     }
 
     #[pyfunction]
@@ -42,6 +40,8 @@ mod rusty_core {
         db_conn.execute("
             DELETE FROM modrole WHERE guild_id = ?1 AND role_id = ?2
         ", params![guild_id, role_id.to_string()]).unwrap();
+
+        println!("Rust: Removed modrole: {}", role_id)
     }
 
     #[pyfunction]
