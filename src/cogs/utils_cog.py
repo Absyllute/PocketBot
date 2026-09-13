@@ -4,7 +4,6 @@ from discord import app_commands
 from utils.embeds import BotEmbeds
 from modals.embed_builder_modal_ import EmbedBuilderModal
 import utils.shared_vars as SharedVars
-import rusty_core
 
 class Utils(commands.Cog):
     def __init__(self, bot: commands.Bot):

@@ -10,9 +10,18 @@ class Config(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
 
-    modrole_cmd_grp = app_commands.Group(name="modrole", description="Commands for adding staff members for staff-only commands")
+    modrole_cmd_grp  = app_commands.Group(name="modrole", description="Commands for adding staff members for staff-only commands")
+    joinlink_cmd_grp = app_commands.Group(name="joinlink", description="Commands for the server's Minecraft server's join link")
+
+    @joinlink_cmd_grp.command(name="set", description="Set the server's join link")
+    @SharedVars.Config.is_mod_or_admin()
+    async def set_joinlink(self, interaction: discord.Interaction, url: str):
+        if interaction.guild_id:
+            rusty_core.set_join_link(guild_id=interaction.guild_id, url=url)
+
+            await interaction.response.send_message(embed=BotEmbeds.succsess_embed(success_message="Set server join link successfully!"))
     
-    ### --- ### Require user to be in the modrole group ### --- ###
+    ### --- ### Modrole config ### --- ###
     @modrole_cmd_grp.command(name="add", description="Adds a role to be able run eleveted commands")
     @SharedVars.Config.is_mod_or_admin()
     async def add_modrole(self, interaction: discord.Interaction, role: discord.Role):
