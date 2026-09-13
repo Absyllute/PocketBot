@@ -142,6 +142,29 @@ class BotEmbeds:
         return eb, bot_icon, dev_icon
 
     @staticmethod
+    def admin_help_embed() -> Embed:
+        eb = discord.Embed(
+            title="Admin Commands",
+            colour=shared_vars.primary_colour
+        )
+
+        eb.add_field(
+            name="`/adminhelp`",
+            value="Shows this *helpful* menu"
+        )
+
+        eb.add_field(
+            name="`/modrole`",
+            value="Manage roles in the modrole group"
+        )
+
+        eb.add_field(
+            name="`/joinlink`",
+            value="Manage the server's join link"
+        )
+
+        return eb
+    @staticmethod
     def help_embed() -> Embed:
         eb = discord.Embed(
             title="Help!",

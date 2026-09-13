@@ -28,6 +28,12 @@ class Utils(commands.Cog):
 
         await interaction.response.send_message(embed=embed)
 
+    @app_commands.command(name="adminhelp", description="Shows a list of admin commands that PocketBot comes with")
+    async def admin_help(self, interaction: discord.Interaction):
+        embed = BotEmbeds.admin_help_embed()
+
+        await interaction.response.send_message(embed=embed)
+
     @app_commands.command(name='about', description='Information about the bot')
     async def about(self, interaction: discord.Interaction):
         embed, bot_icon, dev_icon = BotEmbeds.about_embed(ver="v0.1.0")
