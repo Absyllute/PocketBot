@@ -22,6 +22,7 @@ class BotClient(commands.Bot):
         await self.load_extension("cogs.utils_cog")
         await self.load_extension("cogs.moderation_cog")
         await self.load_extension("cogs.smp_cog")
+        await self.load_extension("cogs.config_cog")
 
         self.tree.copy_global_to(guild=dev_guild)
         synced = await self.tree.sync(guild=dev_guild)

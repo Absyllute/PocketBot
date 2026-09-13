@@ -3,7 +3,6 @@ use pyo3::prelude::*;
 /// A Python module implemented in Rust.
 #[pymodule]
 mod rusty_core {
-    use std::env::join_paths;
 
 use pyo3::prelude::*;
     use rusqlite::{Connection, params};
