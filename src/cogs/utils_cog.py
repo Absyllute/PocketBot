@@ -23,11 +23,10 @@ class Utils(commands.Cog):
     @SharedVars.Config.is_mod_or_admin()
     async def add_modrole(self, interaction: discord.Interaction, role: discord.Role):
         if isinstance (interaction.user, discord.Member):
-            if interaction.user.guild_permissions.administrator:
-                if interaction.guild_id is not None:
-                    SharedVars.Config.mod_roles.add(role.id)
-                    rusty_core.add_modrole(guild_id=interaction.guild_id, role_ids=list(SharedVars.Config.mod_roles))
-                    await interaction.response.send_message(embed=BotEmbeds.succsess_embed(success_message=f"Added {role.mention} to the list of modroles!"))
+            if interaction.user.guild_permissions.administrator and interaction.guild_id:
+                SharedVars.Config.mod_roles.add(role.id)
+                rusty_core.add_modrole(guild_id=interaction.guild_id, role_id=role.id)
+                await interaction.response.send_message(embed=BotEmbeds.succsess_embed(success_message=f"Added {role.mention} to the list of modroles!"))
             else:
                 await interaction.response.send_message(embed=BotEmbeds.error_embed("Only people with the Administrator permission can run this command!"), ephemeral=True)
 
@@ -35,8 +34,9 @@ class Utils(commands.Cog):
     @SharedVars.Config.is_mod_or_admin()
     async def remove_modrole(self, interaction: discord.Interaction, role: discord.Role):
         if isinstance (interaction.user, discord.Member):
-            if interaction.user.guild_permissions.administrator:
+            if interaction.user.guild_permissions.administrator and interaction.guild_id:
                 SharedVars.Config.mod_roles.discard(role.id)
+                rusty_core.remove_modrole(guild_id=interaction.guild_id, role_id=role.id)
                 await interaction.response.send_message(embed=BotEmbeds.succsess_embed(f"Removed {role.mention} from the list of modroles!"))
             else:
                 await interaction.response.send_message(embed=BotEmbeds.error_embed("Only people with the Administrator permission can run this command!"), ephemeral=True)
