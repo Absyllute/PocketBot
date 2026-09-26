@@ -44,7 +44,7 @@ class BotEmbeds:
     @staticmethod
     def smp_embed(latency: float, online_players: int) -> Embed:
         eb = Embed(
-            title="PocketCraft SMP Status",
+            title="SMP Status",
             color=shared_vars.primary_colour
         )
 
@@ -91,10 +91,6 @@ class BotEmbeds:
             name="Note:",
             value="The ping is really high at the moment, bear with us",
             inline=False
-        )
-
-        eb.set_footer(
-            text="SMP run by Absyllute"
         )
 
         return eb

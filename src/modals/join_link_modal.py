@@ -14,19 +14,9 @@ class JoinLinkModal(ui.Modal, title="Customise your server"):
         style=TextStyle.paragraph
     )
 
-    java_link_title = ui.TextInput(
-        label="Java Link Title:",
-        placeholder="Java Edition (1.21.11+)"
-    )
-
     java_link = ui.TextInput(
         label="Java Join Link",
         placeholder="play.examplesmp.gg"
-    )
-
-    bedrock_link_title = ui.TextInput(
-        label="Bedrock Join Title",
-        placeholder="Bedrock Edtion (26.1+):"
     )
 
     bedrock_link = ui.TextInput(
@@ -48,7 +38,7 @@ class JoinLinkModal(ui.Modal, title="Customise your server"):
         port_str = self.bedrock_port.value.strip() # strip white-space
         port_val = int(port_str) if port_str.isdigit() else 0
 
-        rusty_core.setup_join_link(
+        rusty_core.setup_join_links(
             embed_title=self.embed_title.value,
             embed_desc=self.embed_desc.value,
             guild_id=interaction.guild_id,

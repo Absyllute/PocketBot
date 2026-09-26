@@ -3,6 +3,7 @@ from discord.ext import commands
 from discord import app_commands
 from utils.embeds import BotEmbeds
 from modals.embed_builder_modal_ import EmbedBuilderModal
+from modals.join_link_modal import JoinLinkModal
 import utils.shared_vars as SharedVars
 import rusty_core
 
@@ -15,11 +16,9 @@ class Config(commands.Cog):
 
     @joinlink_cmd_grp.command(name="set", description="Set the server's join link")
     @SharedVars.Config.is_mod_or_admin()
-    async def set_joinlink(self, interaction: discord.Interaction, url: str):
+    async def set_joinlink(self, interaction: discord.Interaction):
         if interaction.guild_id:
-            # rusty_core.set_join_link(guild_id=interaction.guild_id, url=url)
-
-            await interaction.response.send_message(embed=BotEmbeds.succsess_embed(success_message="Set server join link successfully!"))
+            await interaction.response.send_modal(JoinLinkModal())
     
     ### --- ### Modrole config ### --- ###
     @modrole_cmd_grp.command(name="add", description="Adds a role to be able run eleveted commands")

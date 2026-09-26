@@ -36,7 +36,7 @@ use pyo3::prelude::*;
 
     /// Sets up the SMP join links for the guild the command is run in.
     #[pyfunction]
-    fn setup_join_link (guild_id: i64, java_link: &str, bedrock_link: &str, bedrock_port: i64, embed_title: &str, embed_desc: &str) {
+    fn setup_join_links (guild_id: i64, java_link: &str, bedrock_link: &str, bedrock_port: i64, embed_title: &str, embed_desc: &str) {
         let db_conn = Connection::open(DATABASE).unwrap();
 
         db_conn.execute("
