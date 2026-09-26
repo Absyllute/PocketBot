@@ -36,7 +36,7 @@ class SMP(commands.Cog):
                 print(f"Failed to send: \"{e}\"")
                 eb = BotEmbeds.smp_error_embed(str(e))
 
-        await interaction.followup.send(embed=eb)
+        await interaction.followup.send(embed=eb, ephemeral=True)
 
 
 async def setup(bot: commands.Bot):
