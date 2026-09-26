@@ -1,5 +1,6 @@
 from discord import ui, TextStyle
 import discord
+from utils.embeds import BotEmbeds
 import rusty_core
 
 class JoinLinkModal(ui.Modal, title="Customise your server"):
@@ -46,3 +47,5 @@ class JoinLinkModal(ui.Modal, title="Customise your server"):
             bedrock_link=self.bedrock_link.value,
             bedrock_port=port_val
         )
+
+        await interaction.response.send_message(embed=BotEmbeds.succsess_embed("Successfully set up join links!"))
