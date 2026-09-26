@@ -12,6 +12,16 @@ DEV_ICON_PATH = BASE_DIR / "assets" / "images" / "absyllute.jpg"
 class BotEmbeds:
 
     @staticmethod
+    def logs_embed(title: str | None, desc: str):
+        eb = Embed(
+            color=shared_vars.info_colour,
+            title=title,
+            description=desc 
+        )
+
+        return eb
+
+    @staticmethod
     def info_embed(title: str, desc: str):
         eb = Embed(
             color=shared_vars.info_colour,
