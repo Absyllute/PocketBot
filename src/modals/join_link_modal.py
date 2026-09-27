@@ -10,7 +10,7 @@ class JoinLinkModal(ui.Modal, title="Customise your server"):
     )
 
     embed_desc = ui.TextInput(
-        label="Description (Markdown Supported :)",
+        label="Description (Markdown Supported) :)",
         placeholder="The **Official** SMP for the PocketHost Discord server.",
         style=TextStyle.paragraph,
         required=False
@@ -30,7 +30,7 @@ class JoinLinkModal(ui.Modal, title="Customise your server"):
 
     bedrock_port = ui.TextInput(
         label="Bedrock Port",
-        placeholder="12367",
+        placeholder="67167",
         style=TextStyle.short,
         required=False
     )

@@ -20,7 +20,6 @@ class BotClient(commands.Bot):
 
     async def setup_hook(self):
         await self.load_extension("cogs.utils_cog")
-        await self.load_extension("cogs.moderation_cog")
         await self.load_extension("cogs.smp_cog")
         await self.load_extension("cogs.config_cog")
         await self.load_extension("cogs.support_cog")
