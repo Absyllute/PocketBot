@@ -14,6 +14,7 @@ fn bot_backend (m: &Bound<'_, PyModule>) -> PyResult<()> {
     // --- mc_server.rs --- //
     m.add_function(wrap_pyfunction!(mc_server::check_join_links, m)?)?;
     m.add_function(wrap_pyfunction!(mc_server::setup_join_links, m)?)?;
+    m.add_function(wrap_pyfunction!(mc_server::remove_join_links, m)?)?;
 
     // --- db.rs -- //
     m.add_function(wrap_pyfunction!(db::init_db, m)?)?;

@@ -14,6 +14,15 @@ use crate::DATABASE;
     }
 
     #[pyfunction]
+    pub fn remove_join_links (guild_id: i64) {
+        let db_conn = Connection::open(DATABASE).unwrap();
+
+        db_conn.execute(
+            "DELETE FROM tb_mcserver WHERE guild_id = ?1",
+            params![guild_id]).unwrap();
+    }
+
+    #[pyfunction]
     pub fn check_join_links(guild_id: i64) -> PyResult<Option<(Option<String>, Option<String>, Option<i64>, String, Option<String>)>> {
         let db_conn = Connection::open(DATABASE).unwrap();
 
