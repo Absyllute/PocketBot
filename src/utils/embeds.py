@@ -91,7 +91,7 @@ class BotEmbeds:
         if bedrock_link and bedrock_port:
             eb.add_field(
                 name="Bedrock Edition:",
-                value=f"`{bedrock_link}` \n Port: `{bedrock_link}`",
+                value=f"`{bedrock_link}` \n Port: `{bedrock_port}`",
                 inline=True
             )
 
