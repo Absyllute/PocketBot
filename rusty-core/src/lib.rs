@@ -23,7 +23,7 @@ use pyo3::prelude::*;
         ", []).unwrap();
 
         db_conn.execute("
-            CREATE TABLE IF NOT EXISTS tb_mc_server (
+            CREATE TABLE IF NOT EXISTS tb_mcserver (
                 guild_id     INTEGER NOT NULL PRIMARY KEY,
                 java_link    TEXT,
                 bedrock_link TEXT,
@@ -40,7 +40,7 @@ use pyo3::prelude::*;
         let db_conn = Connection::open(DATABASE).unwrap();
 
         db_conn.execute("
-            INSERT OR REPLACE INTO tb_mc_server (guild_id, java_link, bedrock_link, bedrock_port, embed_title, embed_desc)
+            INSERT OR REPLACE INTO tb_mcserver (guild_id, java_link, bedrock_link, bedrock_port, embed_title, embed_desc)
             VALUES(?1, ?2, ?3, ?4, ?5, ?6)
         ", params![guild_id, java_link, bedrock_link, bedrock_port, embed_title, embed_desc]).unwrap();
     }

@@ -68,30 +68,32 @@ class BotEmbeds:
         return eb
 
     @staticmethod
-    def ip_embed() -> Embed:
+    def ip_embed(
+        embed_title: str | None = None,
+        java_link: str | None = None,
+        bedrock_link: str | None = None,
+        bedrock_port: int | None = None,
+        embed_desc: str | None = None
+        ) -> Embed:
         eb = Embed(
-            title="PocketCraft SMP",
-            description="Early closed beta for server memebers",
+            title=f"{embed_title}",
+            description=f"{embed_desc}",
             color=shared_vars.primary_colour
         )
 
-        eb.add_field(
-            name="Java Edition:",
-            value="`play.pocketcraft-smp.online`",
-            inline=True
-        )
+        if java_link:
+            eb.add_field(
+                name="Java Edition:",
+                value=f"`{java_link}`",
+                inline=True
+            )
 
-        eb.add_field(
-            name="Bedrock Edition:",
-            value="`bedrock.pocketcraft-smp.online` \n Port: `17506`",
-            inline=True
-        )
-
-        eb.add_field(
-            name="Note:",
-            value="The ping is really high at the moment, bear with us",
-            inline=False
-        )
+        if bedrock_link and bedrock_port:
+            eb.add_field(
+                name="Bedrock Edition:",
+                value=f"`{bedrock_link}` \n Port: `{bedrock_link}`",
+                inline=True
+            )
 
         return eb
 

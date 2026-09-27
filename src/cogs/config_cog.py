@@ -19,6 +19,28 @@ class Config(commands.Cog):
     async def set_joinlink(self, interaction: discord.Interaction):
         if interaction.guild_id:
             await interaction.response.send_modal(JoinLinkModal())
+
+    
+    @joinlink_cmd_grp.command(name="check", description="Check what the server's server link is")
+    async def get_joinlink(self, interaction: discord.Interaction):
+        if interaction.guild_id:
+            data = rusty_core.check_join_links(guild_id=interaction.guild_id)
+
+            if data is None:
+                await interaction.response.send_message(embed=BotEmbeds.error_embed(error_message="No join links found for this server!"), ephemeral=True)
+                return
+
+            java_link, bedrock_link, bedrock_port, embed_title, embed_desc = data
+
+            await interaction.response.send_message(
+                embed=BotEmbeds.ip_embed(
+                    embed_title=embed_title or "Check out our Minecraft Server!",
+                    java_link=java_link,
+                    bedrock_link=bedrock_link,
+                    bedrock_port=bedrock_port,
+                    embed_desc=embed_desc,
+                )
+            )
     
     ### --- ### Modrole config ### --- ###
     @modrole_cmd_grp.command(name="add", description="Adds a role to be able run eleveted commands")
