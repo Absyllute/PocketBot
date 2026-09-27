@@ -12,23 +12,27 @@ class JoinLinkModal(ui.Modal, title="Customise your server"):
     embed_desc = ui.TextInput(
         label="Description (Markdown Supported :)",
         placeholder="The **Official** SMP for the PocketHost Discord server.",
-        style=TextStyle.paragraph
+        style=TextStyle.paragraph,
+        required=False
     )
 
     java_link = ui.TextInput(
         label="Java Join Link",
-        placeholder="play.examplesmp.gg"
+        placeholder="play.examplesmp.gg",
+        required=False
     )
 
     bedrock_link = ui.TextInput(
         label="Bedrock Join Link",
-        placeholder="play.bedrockers.gg"
+        placeholder="play.bedrockers.gg",
+        required=False
     )
 
     bedrock_port = ui.TextInput(
         label="Bedrock Port",
         placeholder="12367",
-        style=TextStyle.short
+        style=TextStyle.short,
+        required=False
     )
 
     async def on_submit(self, interaction: discord.Interaction) -> None:
