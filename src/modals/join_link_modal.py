@@ -1,7 +1,7 @@
 from discord import ui, TextStyle
 import discord
 from utils.embeds import BotEmbeds
-import rusty_core
+import bot_backend
 
 class JoinLinkModal(ui.Modal, title="Customise your server"):
     embed_title = ui.TextInput(
@@ -43,7 +43,7 @@ class JoinLinkModal(ui.Modal, title="Customise your server"):
         port_str = self.bedrock_port.value.strip() # strip white-space
         port_val = int(port_str) if port_str.isdigit() else 0
 
-        rusty_core.setup_join_links(
+        bot_backend.setup_join_links(
             embed_title=self.embed_title.value,
             embed_desc=self.embed_desc.value,
             guild_id=interaction.guild_id,

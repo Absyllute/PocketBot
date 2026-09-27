@@ -5,7 +5,7 @@ from utils.embeds import BotEmbeds
 from modals.embed_builder_modal_ import EmbedBuilderModal
 from modals.join_link_modal import JoinLinkModal
 import utils.shared_vars as SharedVars
-import rusty_core
+import bot_backend
 
 class Config(commands.Cog):
     def __init__(self, bot: commands.Bot):
@@ -24,7 +24,7 @@ class Config(commands.Cog):
     @joinlink_cmd_grp.command(name="check", description="Check what the server's server link is")
     async def get_joinlink(self, interaction: discord.Interaction):
         if interaction.guild_id:
-            data = rusty_core.check_join_links(guild_id=interaction.guild_id)
+            data = bot_backend.check_join_links(guild_id=interaction.guild_id)
 
             if data is None:
                 await interaction.response.send_message(embed=BotEmbeds.error_embed(error_message="No join links found for this server!"), ephemeral=True)
@@ -49,7 +49,7 @@ class Config(commands.Cog):
         if isinstance (interaction.user, discord.Member):
             if interaction.user.guild_permissions.administrator and interaction.guild_id:
                 SharedVars.Config.mod_roles.add(role.id)
-                rusty_core.add_modrole(guild_id=interaction.guild_id, role_id=role.id)
+                bot_backend.add_modrole(guild_id=interaction.guild_id, role_id=role.id)
                 await interaction.response.send_message(embed=BotEmbeds.succsess_embed(success_message=f"Added {role.mention} to the list of modroles!"))
             else:
                 await interaction.response.send_message(embed=BotEmbeds.error_embed("Only people with the Administrator permission can run this command!"), ephemeral=True)
@@ -60,7 +60,7 @@ class Config(commands.Cog):
         if isinstance (interaction.user, discord.Member):
             if interaction.user.guild_permissions.administrator and interaction.guild_id:
                 SharedVars.Config.mod_roles.discard(role.id)
-                rusty_core.remove_modrole(guild_id=interaction.guild_id, role_id=role.id)
+                bot_backend.remove_modrole(guild_id=interaction.guild_id, role_id=role.id)
                 await interaction.response.send_message(embed=BotEmbeds.succsess_embed(f"Removed {role.mention} from the list of modroles!"))
             else:
                 await interaction.response.send_message(embed=BotEmbeds.error_embed("Only people with the Administrator permission can run this command!"), ephemeral=True)
@@ -69,7 +69,7 @@ class Config(commands.Cog):
     @SharedVars.Config.is_mod_or_admin()
     async def list_modroles(self, interaction: discord.Interaction):
         if isinstance(interaction.user, discord.Member) and interaction.guild_id:
-            modroles: list[int] = rusty_core.check_modroles(guild_id=interaction.guild_id)
+            modroles: list[int] = bot_backend.check_modroles(guild_id=interaction.guild_id)
             role_index: int = 1
             desc: str = ""
 
