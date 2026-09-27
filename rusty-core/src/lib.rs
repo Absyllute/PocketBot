@@ -4,7 +4,7 @@ mod mc_server;
 
 use pyo3::prelude::*;
 
-pub const DATABASE: &str = "test.db";
+pub const DATABASE: &str = "prod.db";
 
 
 /// A Python module implemented in Rust.

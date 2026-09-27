@@ -41,6 +41,14 @@ class Config(commands.Cog):
                     embed_desc=embed_desc,
                 )
             )
+
+    @joinlink_cmd_grp.command(name="remove", description="Remove the join links configured for this server")
+    @SharedVars.Config.is_mod_or_admin()
+    async def remove_joinlinks(self, interaction: discord.Interaction):
+        if interaction.guild_id:
+            bot_backend.remove_join_links(guild_id=interaction.guild_id)
+
+            await interaction.response.send_message(embed=BotEmbeds.succsess_embed("Removed server's join links!"))
     
     ### --- ### Modrole config ### --- ###
     @modrole_cmd_grp.command(name="add", description="Adds a role to be able run eleveted commands")
