@@ -25,7 +25,7 @@ use pyo3::prelude::*;
         db_conn.execute("
             CREATE TABLE IF NOT EXISTS tb_mc_server (
                 guild_id     INTEGER NOT NULL PRIMARY KEY,
-                java_link    TEXT NOT NULL,
+                java_link    TEXT,
                 bedrock_link TEXT,
                 bedrock_port INTEGER,
                 embed_title  TEXT NOT NULL,
@@ -45,7 +45,30 @@ use pyo3::prelude::*;
         ", params![guild_id, java_link, bedrock_link, bedrock_port, embed_title, embed_desc]).unwrap();
     }
 
+    #[pyfunction]
+    fn check_join_links(guild_id: i64) -> PyResult<Option<(Option<String>, Option<String>, Option<i64>, String, Option<String>)>> {
+        let db_conn = Connection::open(DATABASE).unwrap();
 
+        let mut stmt = db_conn.prepare("SELECT java_link, bedrock_link, bedrock_port, embed_title, embed_desc FROM tb_mcserver WHERE guild_id = ?1").unwrap();
+
+        let iter = stmt.query_map(params![guild_id], |row| {
+            Ok((
+                row.get::<usize, Option<String>>(0)?, // Java link
+                row.get::<usize, Option<String>>(1)?, // Bedrock link
+                row.get::<usize, Option<i64>>(2)?,    // Bedrock port
+                row.get::<usize, String>(3)?,         // Embed title
+                row.get::<usize, Option<String>>(4)?  // Embed description
+            ))
+        }).unwrap();
+
+        let mut result = None;
+
+        for row in iter {
+            result = Some(row.unwrap());
+        }
+
+        Ok(result)
+    }
 
     /// Adds a role id into the modrole group
     #[pyfunction]
